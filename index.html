@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nancy Hazel | Illustrator & VTuber Mama</title>
+  <meta name="description" content="Nancy Hazel - Illustrator, Comic Artist, Emote Queen, VTuber Mama. Comics, 2D art, emotes, mascots, websites, applications & branding.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Pacifico&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="scroll-progress" id="scrollProgress"></div>
+
+  <!-- ============ NAVBAR ============ -->
+  <header class="navbar" id="navbar">
+    <div class="container nav-wrap">
+      <a href="#home" class="logo">Nancy Hazel<span class="logo-dot">.</span></a>
+
+      <nav class="nav-links" id="navLinks">
+        <a href="#gallery" class="nav-link" data-cat="comics">Comics</a>
+        <a href="#gallery" class="nav-link" data-cat="art2d">2D Arts</a>
+        <a href="#gallery" class="nav-link" data-cat="emotes">Emotes</a>
+        <a href="#gallery" class="nav-link" data-cat="mascots">Mascot Logos</a>
+        <a href="#gallery" class="nav-link" data-cat="tattoos">Tattoos</a>
+        <a href="#gallery" class="nav-link" data-cat="websites">Website</a>
+        <a href="#applications" class="nav-link" data-section="applications">Application</a>
+        <a href="#branding-case" class="nav-link" data-section="branding">Branding</a>
+        <a href="#about" class="nav-link" data-section="about">About</a>
+      </nav>
+
+      <button class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ============ HERO ============ -->
+  <section class="hero" id="home">
+    <div class="hero-banner">
+      <img src="images/cover.webp" alt="Nancy Hazel - Cover Artwork" class="banner-img" fetchpriority="high" onerror="this.style.display='none'">
+      <div class="banner-grain"></div>
+      <span class="banner-star s1">✦</span>
+      <span class="banner-star s2">★</span>
+      <span class="banner-star s3">✦</span>
+      <span class="banner-star s4">✧</span>
+    </div>
+
+    <div class="container hero-content">
+      <div class="profile-wrap reveal">
+        <img src="images/profile.webp" alt="Nancy Hazel - Illustrator & VTuber Mama" fetchpriority="high" class="profile-img">
+        <span class="status-dot" title="Open for commissions"></span>
+      </div>
+
+      <p class="hero-tag reveal">✦ Available for Commissions ✦</p>
+      <h1 class="hero-title reveal">Hi, I'm Nancy Hazel!</h1>
+      <p class="hero-subtitle reveal">Illustrator • Comic Artist • Emote Queen • VTuber Mama</p>
+
+      <div class="hero-stats reveal">
+        <div class="stat"><strong>155+</strong><span>Artworks</span></div>
+        <div class="stat"><strong>100+</strong><span>Happy Clients</span></div>
+        <div class="stat"><strong>3+</strong><span>Years Experience</span></div>
+      </div>
+
+      <div class="hero-buttons reveal">
+        <a href="#gallery" class="btn btn-primary">View My Work</a>
+        <a href="#tweets" class="btn btn-outline">Commission Me</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ GALLERY ============ -->
+  <section class="section" id="gallery">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="section-label">Portfolio</span>
+        <h2 class="section-title" id="galleryTitle">Comics</h2>
+        <p class="section-desc" id="galleryDesc">Story-driven comic pages made with love for amazing clients.</p>
+      </div>
+
+      <div class="filter-tabs reveal" id="filterTabs"></div>
+
+      <div class="gallery-grid" id="galleryGrid"></div>
+
+      <div class="load-more-wrap" id="loadMoreWrap">
+        <button class="btn btn-primary" id="viewAllBtn">
+          View All Artworks <i class="fa-solid fa-arrow-down"></i>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 02. BRANDING DESIGN — Ourvita Case Study ============ -->
+  <section class="section section-alt branding-case" id="branding-case">
+    <div class="container">
+
+      <div class="section-head reveal">
+        <span class="section-label">02. Branding Design</span>
+        <h2 class="section-title">Branding Design</h2>
+        <p class="section-desc">
+          These Brand Identity design projects involve creating impactful visual
+          identifying marks of their Mission and Goals.
+        </p>
+      </div>
+
+      <div class="branding-intro reveal">
+        <h3 class="project-name">Ourvita — Premium Natural Cosmetics Brand</h3>
+        <p class="project-desc">
+          Ourvita is a premium natural cosmetics brand committed to delivering
+          high-performance skincare and beauty products powered by nature.
+          <strong>Target Audience:</strong> Eco-conscious consumers 18–45, Women &amp; Men.
+        </p>
+      </div>
+
+      <div class="branding-deliverables reveal">
+        <span class="feature-chip"><i class="fa-solid fa-leaf"></i> Brand: Ourvita — Industry: Cosmetic</span>
+        <span class="feature-chip"><i class="fa-solid fa-font"></i> Wordmark Logo with Negative Space Leaf Concept</span>
+        <span class="feature-chip"><i class="fa-solid fa-seedling"></i> Logo Explanation — Nature, Vitality, Growth, Toxin Free</span>
+        <span class="feature-chip"><i class="fa-solid fa-palette"></i> Color Palette: Green, Beige, Brown</span>
+        <span class="feature-chip"><i class="fa-solid fa-a"></i> Typography: Labora Font</span>
+        <span class="feature-chip"><i class="fa-solid fa-shapes"></i> Pattern Design</span>
+        <span class="feature-chip"><i class="fa-solid fa-id-card"></i> Stationery: Business Card, Letterhead, Envelope, ID Card</span>
+        <span class="feature-chip"><i class="fa-solid fa-mobile-screen"></i> Digital Assets: App Icon, Website Mockup, Social Media Profile</span>
+      </div>
+
+      <div class="branding-grid">
+        <figure class="branding-item reveal">
+          <div class="branding-img-box dark-bg">
+            <img src="images/branding/ourvita-1.webp" alt="Ourvita Brand Guideline banner by Nancy Hazel" loading="lazy">
+          </div>
+          <figcaption>Brand Guideline — Ourvita</figcaption>
+        </figure>
+
+        <figure class="branding-item reveal">
+          <div class="branding-img-box">
+            <img src="images/branding/ourvita-2.webp" alt="Ourvita Logo Explanation by Nancy Hazel" loading="lazy">
+          </div>
+          <figcaption>Logo Explanation — Negative Space Leaf Concept</figcaption>
+        </figure>
+
+        <figure class="branding-item reveal">
+          <div class="branding-img-box">
+            <img src="images/branding/ourvita-3.webp" alt="Ourvita Stationery and Digital Mockups by Nancy Hazel" loading="lazy">
+          </div>
+          <figcaption>Full Mockups — Stationery, ID Card &amp; Digital Assets</figcaption>
+        </figure>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============ BRAND APPLICATIONS — Ourvita in Real World ============ -->
+  <section class="section brand-apps" id="applications">
+    <div class="container">
+
+      <div class="section-head reveal">
+        <span class="section-label">Brand Applications</span>
+        <h2 class="section-title">Ourvita in Real World</h2>
+        <p class="section-desc">Brand identity applied across digital, print and outdoor mediums.</p>
+      </div>
+
+      <div class="apps-grid">
+
+        <!-- CARD 1 -->
+        <div class="app-card reveal">
+          <div class="app-img-box">
+            <img src="images/applications/social-media.webp"
+                 alt="Social Media Design by Nancy Hazel" loading="lazy"
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <div class="app-placeholder">
+              <i class="fa-solid fa-hashtag"></i>
+              <span>Social Media Design</span>
+            </div>
+          </div>
+          <div class="app-card-body">
+            <h3>Social Media Design</h3>
+            <p>Visual content eye crafted for social media network such as Instagram and Facebook</p>
+          </div>
+        </div>
+
+        <!-- CARD 2 -->
+        <div class="app-card reveal">
+          <div class="app-img-box">
+            <img src="images/applications/package-design.webp"
+                 alt="Package Design by Nancy Hazel" loading="lazy"
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <div class="app-placeholder">
+              <i class="fa-solid fa-box-open"></i>
+              <span>Package Design</span>
+            </div>
+          </div>
+          <div class="app-card-body">
+            <h3>Package Design</h3>
+            <p>Design innovative and visually appealing product packaging that effectively communicates brand identity and enhances customer engagement</p>
+          </div>
+        </div>
+
+        <!-- CARD 3 -->
+        <div class="app-card reveal">
+          <div class="app-img-box">
+            <img src="images/applications/print-media.webp"
+                 alt="Print Media by Nancy Hazel" loading="lazy"
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <div class="app-placeholder">
+              <i class="fa-solid fa-print"></i>
+              <span>Print Media</span>
+            </div>
+          </div>
+          <div class="app-card-body">
+            <h3>Print Media</h3>
+            <p>High quality print designs eye crafted to enhance office offline brand presence</p>
+          </div>
+        </div>
+
+        <!-- CARD 4 -->
+        <div class="app-card reveal">
+          <div class="app-img-box">
+            <img src="images/applications/billboard-design.webp"
+                 alt="Billboard Design by Nancy Hazel" loading="lazy"
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <div class="app-placeholder">
+              <i class="fa-solid fa-panorama"></i>
+              <span>Billboard Design</span>
+            </div>
+          </div>
+          <div class="app-card-body">
+            <h3>Billboard Design</h3>
+            <p>Eye-catching large scale billboard and standee designs crafted to maximize outdoor brand visibility and create lasting impact in high-traffic areas</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ABOUT ============ -->
+  <section class="section section-alt" id="about">
+    <div class="container about-wrap">
+      <div class="about-img reveal">
+        <img src="images/profile.webp" alt="About Nancy Hazel">
+      </div>
+      <div class="about-text reveal">
+        <span class="section-label">About Me</span>
+        <h2 class="section-title left">The artist behind the art</h2>
+        <p>
+          Hey! I'm Nancy — an illustrator who lives for cozy palettes, expressive
+          characters and stories told through art. From full comics to tiny emotes,
+          I pour heart into every pixel.
+        </p>
+        <p>
+          Beyond illustration, I design modern websites, app interfaces and complete
+          brand identities — one creative home for all your visual needs.
+        </p>
+
+        <div class="about-filters">
+          <button class="tab" data-jump="websites">Website</button>
+          <button class="tab" data-jump="applications">Application</button>
+          <button class="tab" data-jump="branding">Branding</button>
+          <button class="tab" data-jump="mascots">Logos</button>
+        </div>
+
+        <a href="#tweets" class="btn btn-primary">Work With Me</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ LATEST TWEETS ============ -->
+  <section class="section" id="tweets">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="section-label">Social</span>
+        <h2 class="section-title">Latest Tweets</h2>
+        <p class="section-desc">Follow along on X for latest artwork and updates.</p>
+      </div>
+      <div class="tweets-wrap reveal">
+        <a class="twitter-timeline" data-width="550" data-height="500" data-theme="light"
+           href="https://twitter.com/nancy_artists?ref_src=twsrc%5Etfw">Tweets by nancy_artists</a>
+        <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER — minimal ============ -->
+  <footer class="footer">
+    <div class="container footer-minimal">
+      <p class="footer-name">Nancy</p>
+      <p class="footer-copy">© 2025 Nancy Hazel</p>
+    </div>
+  </footer>
+
+  <!-- ============ LIGHTBOX ============ -->
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close" id="lightboxClose" aria-label="Close">&times;</button>
+    <button class="lightbox-nav lightbox-prev" id="lightboxPrev" aria-label="Previous"><i class="fa-solid fa-chevron-left"></i></button>
+    <img src="" alt="" id="lightboxImg">
+    <div class="lightbox-caption" id="lightboxCaption"></div>
+    <button class="lightbox-nav lightbox-next" id="lightboxNext" aria-label="Next"><i class="fa-solid fa-chevron-right"></i></button>
+  </div>
+
+  <script src="data.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
