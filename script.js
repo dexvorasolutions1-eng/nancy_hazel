@@ -1,7 +1,7 @@
 /* ============================================================
-   NANCY HAZEL — script.js (FINAL v14)
-   7 Tabs: Comics | 2D Arts | Emotes | 3D Models | Mascot Logos
-   Videos | Websites — Video lightbox playback included
+   NANCY HAZEL — script.js (FINAL v15 — Videos removed)
+   6 Tabs: Comics | 2D Arts | Emotes | 3D Models |
+   Mascot Logos | Websites — Image lightbox
    ============================================================ */
 
 /* 1. IMAGE LOAD — fade-in jab image load ho */
@@ -19,20 +19,7 @@ function setupImageLoading() {
   });
 }
 
-/* 2. VIDEO CARDS — hover pe muted preview chalti hai */
-function setupVideoHover() {
-  document.querySelectorAll('.gallery-card.video-card').forEach(card => {
-    const vid = card.querySelector('video.gallery-video');
-    if (!vid) return;
-    card.addEventListener('mouseenter', () => vid.play().catch(() => {}));
-    card.addEventListener('mouseleave', () => {
-      vid.pause();
-      vid.currentTime = 0;
-    });
-  });
-}
-
-/* 3. SCROLL REVEAL */
+/* 2. SCROLL REVEAL */
 const revealObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
@@ -42,29 +29,27 @@ const revealObserver = new IntersectionObserver((entries) => {
   });
 }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
 
-/* 4. CATEGORY HEADINGS */
+/* 3. CATEGORY HEADINGS */
 const CATEGORY_META = {
   comics:   { title: "Comics",       desc: "Story-driven comic pages made with love for amazing clients." },
   art2d:    { title: "2D Arts",      desc: "Character illustrations, portraits and concept artwork." },
   emotes:   { title: "Emotes",       desc: "Twitch & Discord emote packs — expressive, cute and readable." },
   models3d: { title: "3D Models",    desc: "Detailed 3D models & renders — characters, props and scenes." },
   mascots:  { title: "Mascot Logos", desc: "Esports & stream mascot logos with bold shield designs." },
-  videos:   { title: "Videos",       desc: "Animation & motion reels — click any video to watch it in fullscreen." },
   websites: { title: "Websites",     desc: "Modern, responsive websites designed and built from scratch." }
 };
 
-/* 5. TAB ORDER — 7 tabs */
+/* 4. TAB ORDER — 6 tabs */
 const TAB_ORDER = [
   { key: "comics",   label: "Comics" },
   { key: "art2d",    label: "2D Arts" },
   { key: "emotes",   label: "Emotes" },
   { key: "models3d", label: "3D Models" },
   { key: "mascots",  label: "Mascot Logos" },
-  { key: "videos",   label: "Videos" },
   { key: "websites", label: "Websites" }
 ];
 
-/* 6. BUILD GALLERY — images + video cards + website cards */
+/* 5. BUILD GALLERY — website cards + image cards */
 const galleryGrid = document.getElementById('galleryGrid');
 const galleryTitle = document.getElementById('galleryTitle');
 const galleryDesc = document.getElementById('galleryDesc');
@@ -73,24 +58,6 @@ function buildGallery() {
   if (!galleryGrid) return;
 
   allImages.forEach((img) => {
-
-    /* ----- 🎬 VIDEO CARD ----- */
-    if (img.type === 'video') {
-      galleryGrid.insertAdjacentHTML("beforeend", `
-        <figure class="gallery-card video-card reveal" data-category="${img.category}">
-          <div class="img-box video-box">
-            <video src="${img.src}" data-full="${img.full}" muted loop playsinline
-                   preload="metadata" class="gallery-video"></video>
-            <span class="play-overlay"><i class="fa-solid fa-play"></i></span>
-          </div>
-          <div class="card-info">
-            <h3>Video #${img.id}</h3>
-            <span class="card-cat">Videos</span>
-          </div>
-        </figure>
-      `);
-      return;
-    }
 
     /* ----- 🌐 WEBSITE CARD (Live Preview button) ----- */
     if (img.title && img.desc) {
@@ -130,7 +97,7 @@ function buildGallery() {
   });
 }
 
-/* 7. FILTER TABS */
+/* 6. FILTER TABS */
 function buildFilterTabs() {
   const tabsWrap = document.getElementById('filterTabs');
   if (!tabsWrap) return;
@@ -146,7 +113,7 @@ function buildFilterTabs() {
   tabsWrap.innerHTML = html;
 }
 
-/* 8. FILTER + VIEW ALL */
+/* 7. FILTER + VIEW ALL */
 const filterTabs = document.getElementById('filterTabs');
 const viewAllBtn = document.getElementById('viewAllBtn');
 const loadMoreWrap = document.getElementById('loadMoreWrap');
@@ -211,7 +178,7 @@ viewAllBtn.addEventListener('click', () => {
   viewAllBtn.innerHTML = `Showing Everything ✦ <i class="fa-solid fa-heart"></i>`;
 });
 
-/* 9. NAVBAR ROUTING */
+/* 8. NAVBAR ROUTING */
 const navLinks = document.querySelectorAll('.nav-link');
 const navbar = document.getElementById('navbar');
 
@@ -241,7 +208,7 @@ navLinks.forEach(link => {
   });
 });
 
-/* 10. SCROLL — navbar, progress, active link */
+/* 9. SCROLL — navbar, progress, active link */
 const progressBar = document.getElementById('scrollProgress');
 const brandingSection = document.getElementById('branding-case');
 
@@ -264,17 +231,16 @@ function updateNavOnScroll() {
 
 window.addEventListener('scroll', updateNavOnScroll, { passive: true });
 
-/* 11. HAMBURGER */
+/* 10. HAMBURGER */
 hamburger.addEventListener('click', () => {
   hamburger.classList.toggle('open');
   navMenu.classList.toggle('open');
   document.body.style.overflow = navMenu.classList.contains('open') ? 'hidden' : '';
 });
 
-/* 12. LIGHTBOX — Images + Videos dono */
+/* 11. LIGHTBOX — Images only */
 const lightbox = document.getElementById('lightbox');
 const lightboxImg = document.getElementById('lightboxImg');
-const lightboxVideo = document.getElementById('lightboxVideo');
 const lightboxCaption = document.getElementById('lightboxCaption');
 const lightboxClose = document.getElementById('lightboxClose');
 const lightboxPrev = document.getElementById('lightboxPrev');
@@ -283,85 +249,52 @@ const lightboxNext = document.getElementById('lightboxNext');
 let currentGallery = [];
 let currentIndex = 0;
 
-function collectGalleryItems() {
+function openLightbox(img) {
   currentGallery = Array.from(
-    galleryGrid.querySelectorAll('.gallery-card:not(.card-hidden) img.gallery-img, .gallery-card:not(.card-hidden) video.gallery-video')
-  ).map(el => {
-    if (el.tagName === 'VIDEO') {
-      const title = el.closest('.gallery-card').querySelector('h3');
-      return { type: 'video', src: el.dataset.full || el.src, alt: title ? title.textContent : 'Video' };
-    }
-    return { type: 'image', src: el.dataset.full || el.src, alt: el.alt };
-  });
-}
+    galleryGrid.querySelectorAll('.gallery-card:not(.card-hidden) img.gallery-img')
+  ).map(i => ({ src: i.dataset.full || i.src, alt: i.alt }));
 
-function openLightbox(el) {
-  /* gallery ke preview videos pause kardo */
-  document.querySelectorAll('video.gallery-video').forEach(v => v.pause());
-
-  collectGalleryItems();
-  const targetSrc = el.dataset.full || el.src;
-  currentIndex = currentGallery.findIndex(item => item.src === targetSrc);
+  currentIndex = currentGallery.findIndex(item => item.src === (img.dataset.full || img.src));
   if (currentIndex < 0) currentIndex = 0;
 
-  showLightboxItem();
+  showLightboxImage();
   lightbox.classList.add('active');
   document.body.style.overflow = 'hidden';
 }
 
-function showLightboxItem() {
+function showLightboxImage() {
   const item = currentGallery[currentIndex];
   if (!item) return;
-
-  if (item.type === 'video') {
-    /* 🎬 VIDEO MODE */
-    lightboxImg.style.display = 'none';
-    lightboxImg.removeAttribute('src');
-    lightboxVideo.style.display = 'block';
-    lightboxVideo.src = item.src;
-    lightboxVideo.play().catch(() => {});
-    lightboxCaption.textContent = item.alt;
-  } else {
-    /* 🖼️ IMAGE MODE */
-    lightboxVideo.pause();
-    lightboxVideo.style.display = 'none';
-    lightboxImg.style.display = 'block';
-    lightboxImg.style.opacity = '0';
-    const temp = new Image();
-    temp.onload = () => {
-      lightboxImg.src = item.src;
-      lightboxImg.alt = item.alt;
-      lightboxImg.style.opacity = '1';
-    };
-    temp.src = item.src;
-    lightboxCaption.textContent = item.alt;
-  }
+  lightboxImg.style.opacity = '0';
+  const temp = new Image();
+  temp.onload = () => {
+    lightboxImg.src = item.src;
+    lightboxImg.alt = item.alt;
+    lightboxImg.style.opacity = '1';
+  };
+  temp.src = item.src;
+  lightboxCaption.textContent = item.alt;
 }
 
 function closeLightbox() {
-  lightboxVideo.pause();
-  lightboxVideo.removeAttribute('src');
-  lightboxVideo.load();
   lightbox.classList.remove('active');
   document.body.style.overflow = '';
 }
 
 function prevImage() {
   currentIndex = (currentIndex - 1 + currentGallery.length) % currentGallery.length;
-  showLightboxItem();
+  showLightboxImage();
 }
 function nextImage() {
   currentIndex = (currentIndex + 1) % currentGallery.length;
-  showLightboxItem();
+  showLightboxImage();
 }
 
-/* Gallery click — image ya video dono lightbox khulenge */
+/* Gallery click — image lightbox khulegi */
 galleryGrid.addEventListener('click', (e) => {
   if (e.target.closest('.btn-preview')) return;
   const img = e.target.closest('img.gallery-img');
-  if (img) { openLightbox(img); return; }
-  const vid = e.target.closest('video.gallery-video');
-  if (vid) openLightbox(vid);
+  if (img) openLightbox(img);
 });
 
 lightboxClose.addEventListener('click', closeLightbox);
@@ -386,12 +319,11 @@ lightbox.addEventListener('touchend', (e) => {
   if (Math.abs(diff) > 60) diff > 0 ? prevImage() : nextImage();
 }, { passive: true });
 
-/* 13. INIT */
+/* 12. INIT */
 buildFilterTabs();
 buildGallery();
 applyFilter();
 setupImageLoading();
-setupVideoHover();
 updateNavOnScroll();
 
 document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));

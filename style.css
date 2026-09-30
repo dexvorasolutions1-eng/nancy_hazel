@@ -1,6 +1,7 @@
 /* ============================================================
-   NANCY HAZEL — style.css (COMPLETE FINAL v14)
-   Blank space fix + Branding section cleanup
+   NANCY HAZEL — style.css (COMPLETE FINAL v15 — Videos removed)
+   Comics | 2D Arts | Emotes | 3D Models | Mascot Logos |
+   Websites | Branding | Footer — 100% Media Responsive
    ============================================================ */
 
 :root {
@@ -38,7 +39,7 @@ body {
   to   { opacity: 1; transform: translateY(0); }
 }
 
-img, video { max-width: 100%; display: block; }
+img { max-width: 100%; display: block; }
 a { text-decoration: none; color: inherit; }
 button { font-family: inherit; }
 
@@ -493,50 +494,6 @@ button { font-family: inherit; }
   filter: brightness(1.06) saturate(1.08);
 }
 
-/* ---------- 🎬 VIDEO CARDS ---------- */
-.gallery-card .img-box.video-box {
-  aspect-ratio: 16 / 10;
-  background: #17151C;
-  animation: none;
-}
-
-.gallery-card .img-box.video-box video {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  cursor: pointer;
-  background: #17151C;
-  transition: transform 0.5s ease;
-}
-.gallery-card:hover .img-box.video-box video { transform: scale(1.04); }
-
-.play-overlay {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(23, 21, 28, 0.25);
-  pointer-events: none;
-  z-index: 3;
-  transition: background 0.3s ease;
-}
-.play-overlay i {
-  width: 56px; height: 56px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.05rem;
-  color: #fff;
-  background: var(--grad);
-  border-radius: 50%;
-  padding-left: 5px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
-  transition: transform 0.3s ease;
-}
-.gallery-card.video-card:hover .play-overlay { background: rgba(23, 21, 28, 0.05); }
-.gallery-card.video-card:hover .play-overlay i { transform: scale(1.14); }
-
 .gallery-card .card-info {
   display: flex;
   align-items: center;
@@ -608,13 +565,15 @@ button { font-family: inherit; }
 .btn-preview i { font-size: 0.75rem; }
 
 /* ============================================
-   BRANDING — natural image height (NO blank space)
+   BRANDING — natural image height, NO blank space
+   (align-items: start = cards stretch nahi honge)
    ============================================ */
 .branding-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 24px;
   margin-top: 10px;
+  align-items: start;
 }
 
 .branding-item {
@@ -681,7 +640,7 @@ button { font-family: inherit; }
   opacity: 0.6;
 }
 
-/* LIGHTBOX — Images + Videos */
+/* LIGHTBOX — Images */
 .lightbox {
   position: fixed; inset: 0;
   background: rgba(30, 28, 32, 0.93);
@@ -706,18 +665,6 @@ button { font-family: inherit; }
   transition: transform 0.3s ease, opacity 0.25s ease;
 }
 .lightbox.active img { transform: scale(1); }
-
-.lightbox video {
-  display: none;
-  max-width: 94%;
-  max-height: 78vh;
-  border-radius: 14px;
-  background: #000;
-  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.6);
-  transform: scale(0.94);
-  transition: transform 0.3s ease;
-}
-.lightbox.active video { transform: scale(1); }
 
 .lightbox-caption {
   color: #F5EAE2;
@@ -820,7 +767,6 @@ button { font-family: inherit; }
   .lightbox-nav { width: 42px; height: 42px; }
   .lightbox-prev { left: 10px; }
   .lightbox-next { right: 10px; }
-  .lightbox video { max-height: 70vh; }
 }
 
 @media (max-width: 480px) {
@@ -830,7 +776,6 @@ button { font-family: inherit; }
   .tab { padding: 8px 16px; font-size: 0.82rem; }
   .filter-tabs { gap: 8px; }
   .hero-buttons .btn { padding: 12px 24px; font-size: 0.88rem; }
-  .play-overlay i { width: 46px; height: 46px; font-size: 0.92rem; }
 }
 
 @media (prefers-reduced-motion: reduce) {

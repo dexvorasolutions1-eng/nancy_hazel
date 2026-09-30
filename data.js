@@ -1,7 +1,7 @@
 /* ============================================================
-   NANCY HAZEL — data.js (FINAL v14)
+   NANCY HAZEL — data.js (FINAL v16)
    Comics 25 | 2D Arts 25 | Emotes 30 | 3D Models 5 |
-   Mascot Logos 15 | Videos 3 | Websites 2
+   Mascot Logos 15 | Websites 2 (Gym img path fixed)
    ============================================================ */
 
 const CATEGORIES = {
@@ -32,13 +32,6 @@ const CATEGORIES = {
   }
 };
 
-/* ---------- 🎬 VIDEOS — 3 files (videos folder se) ---------- */
-const VIDEOS = [
-  { src: "videos/VID-1.mp4", category: "videos", id: 1 },
-  { src: "videos/VID-2.mp4", category: "videos", id: 2 },
-  { src: "videos/VID-3.mp4", category: "videos", id: 3 }
-];
-
 /* ---------- 🌐 WEBSITES — sirf 2 (Autoparts + Gym & Fitness) ---------- */
 const WEBSITES = [
   {
@@ -52,7 +45,7 @@ const WEBSITES = [
     category: "websites",
     title: "Gym & Fitness Website",
     desc: "An energetic gym website featuring training programs, trainer profiles and membership plans with punchy design.",
-    img: "images/websites/website-3.webp",
+    img: "images/websites/website-2.webp",
     link: "https://gym-website-three-kohl.vercel.app/"
   }
 ];
@@ -74,11 +67,6 @@ Object.keys(CATEGORIES).forEach(catKey => {
       id: i
     });
   }
-});
-
-// Videos (3 — gallery card + lightbox playback)
-VIDEOS.forEach(v => {
-  allImages.push({ ...v, type: "video", full: v.src });
 });
 
 // Websites (2 cards with Live Preview)
