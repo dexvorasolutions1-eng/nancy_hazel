@@ -1,5 +1,6 @@
 /* ============================================================
-   NANCY HAZEL — style.css (COMPLETE FINAL v12)
+   NANCY HAZEL — style.css (COMPLETE FINAL v14)
+   Blank space fix + Branding section cleanup
    ============================================================ */
 
 :root {
@@ -37,7 +38,7 @@ body {
   to   { opacity: 1; transform: translateY(0); }
 }
 
-img { max-width: 100%; display: block; }
+img, video { max-width: 100%; display: block; }
 a { text-decoration: none; color: inherit; }
 button { font-family: inherit; }
 
@@ -113,9 +114,7 @@ button { font-family: inherit; }
 .nav-link.active::after {
   content: '';
   position: absolute;
-  left: 10px;
-  right: 10px;
-  bottom: 4px;
+  left: 10px; right: 10px; bottom: 4px;
   height: 2.5px;
   border-radius: 3px;
   background: var(--grad);
@@ -388,7 +387,6 @@ button { font-family: inherit; }
   color: var(--text);
   margin-bottom: 10px;
 }
-.section-title.left { text-align: left; }
 
 .section-title::after {
   content: '';
@@ -398,7 +396,6 @@ button { font-family: inherit; }
   background: var(--grad);
   margin: 12px auto 0;
 }
-.section-title.left::after { margin-left: 0; }
 
 .section-desc {
   color: var(--text-light);
@@ -470,6 +467,7 @@ button { font-family: inherit; }
 .gallery-card.card-hidden { display: none; }
 
 .gallery-card .img-box {
+  position: relative;
   aspect-ratio: 4 / 5;
   overflow: hidden;
   background: linear-gradient(110deg, #FFF5F0 30%, #FFE8EE 50%, #FFF5F0 70%);
@@ -494,6 +492,50 @@ button { font-family: inherit; }
   transform: scale(1.05);
   filter: brightness(1.06) saturate(1.08);
 }
+
+/* ---------- 🎬 VIDEO CARDS ---------- */
+.gallery-card .img-box.video-box {
+  aspect-ratio: 16 / 10;
+  background: #17151C;
+  animation: none;
+}
+
+.gallery-card .img-box.video-box video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  cursor: pointer;
+  background: #17151C;
+  transition: transform 0.5s ease;
+}
+.gallery-card:hover .img-box.video-box video { transform: scale(1.04); }
+
+.play-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(23, 21, 28, 0.25);
+  pointer-events: none;
+  z-index: 3;
+  transition: background 0.3s ease;
+}
+.play-overlay i {
+  width: 56px; height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.05rem;
+  color: #fff;
+  background: var(--grad);
+  border-radius: 50%;
+  padding-left: 5px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  transition: transform 0.3s ease;
+}
+.gallery-card.video-card:hover .play-overlay { background: rgba(23, 21, 28, 0.05); }
+.gallery-card.video-card:hover .play-overlay i { transform: scale(1.14); }
 
 .gallery-card .card-info {
   display: flex;
@@ -565,43 +607,51 @@ button { font-family: inherit; }
 }
 .btn-preview i { font-size: 0.75rem; }
 
-/* ABOUT */
-.about-wrap {
+/* ============================================
+   BRANDING — natural image height (NO blank space)
+   ============================================ */
+.branding-grid {
   display: grid;
-  grid-template-columns: 0.8fr 1.2fr;
-  gap: 50px;
-  align-items: center;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  margin-top: 10px;
 }
 
-.about-img img {
-  width: 100%;
-  max-width: 340px;
-  margin-inline: auto;
+.branding-item {
+  background: var(--card);
+  border: 1px solid var(--border);
   border-radius: var(--radius);
-  border: 5px solid #fff;
-  box-shadow: var(--shadow-hover);
-  rotate: -2deg;
-  transition: rotate 0.4s ease;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
 }
-.about-img img:hover { rotate: 0deg; }
-
-.about-text p {
-  color: var(--text-light);
-  margin-bottom: 16px;
+.branding-item:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 22px 50px rgba(255, 107, 157, 0.22);
 }
 
-.about-filters {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin: 22px 0 28px;
+.branding-img-box {
+  overflow: hidden;
+  background: var(--bg);
+  line-height: 0;
 }
-.about-filters .tab { font-size: 0.85rem; padding: 9px 20px; }
+.branding-img-box.dark-bg { background: #0D0D0D; }
 
-/* LATEST TWEETS */
-.tweets-wrap {
-  display: flex;
-  justify-content: center;
+.branding-img-box img {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: transform 0.6s cubic-bezier(0.25, 0.8, 0.3, 1);
+}
+.branding-item:hover .branding-img-box img {
+  transform: scale(1.04);
+}
+
+.branding-item figcaption {
+  padding: 14px 18px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text);
 }
 
 /* FOOTER — minimal */
@@ -631,7 +681,7 @@ button { font-family: inherit; }
   opacity: 0.6;
 }
 
-/* LIGHTBOX */
+/* LIGHTBOX — Images + Videos */
 .lightbox {
   position: fixed; inset: 0;
   background: rgba(30, 28, 32, 0.93);
@@ -656,6 +706,18 @@ button { font-family: inherit; }
   transition: transform 0.3s ease, opacity 0.25s ease;
 }
 .lightbox.active img { transform: scale(1); }
+
+.lightbox video {
+  display: none;
+  max-width: 94%;
+  max-height: 78vh;
+  border-radius: 14px;
+  background: #000;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.6);
+  transform: scale(0.94);
+  transition: transform 0.3s ease;
+}
+.lightbox.active video { transform: scale(1); }
 
 .lightbox-caption {
   color: #F5EAE2;
@@ -709,215 +771,12 @@ button { font-family: inherit; }
 .gallery-card.filter-in { animation: cardIn 0.45s cubic-bezier(0.25, 0.8, 0.3, 1) forwards; }
 
 /* ============================================
-   BRANDING CASE STUDY — Ourvita
-   ============================================ */
-.branding-intro {
-  text-align: center;
-  max-width: 720px;
-  margin: 0 auto 30px;
-}
-.project-name {
-  font-size: 1.4rem;
-  font-weight: 800;
-  color: var(--text);
-  margin-bottom: 10px;
-}
-.project-desc {
-  color: var(--text-light);
-  font-size: 0.95rem;
-}
-.project-desc strong { color: var(--pink); }
-
-.branding-deliverables {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 10px;
-  margin: 22px 0 34px;
-}
-
-.feature-chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 0.8rem;
-  font-weight: 600;
-  color: var(--text);
-  background: var(--card);
-  border: 1px solid var(--border);
-  padding: 9px 16px;
-  border-radius: 50px;
-  box-shadow: var(--shadow);
-  transition: all 0.3s ease;
-}
-.feature-chip i { color: var(--pink); }
-.feature-chip:hover {
-  transform: translateY(-3px);
-  box-shadow: var(--shadow-hover);
-  border-color: rgba(255, 107, 157, 0.35);
-}
-
-.branding-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 24px;
-  margin-top: 10px;
-}
-
-.branding-item {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  overflow: hidden;
-  box-shadow: var(--shadow);
-  transition: transform 0.35s ease, box-shadow 0.35s ease;
-}
-.branding-item:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 22px 50px rgba(255, 107, 157, 0.22);
-}
-
-.branding-img-box {
-  overflow: hidden;
-  background: #FFF5F0;
-  min-height: 260px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.branding-img-box.dark-bg { background: #0D0D0D; }
-
-.branding-img-box img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.6s cubic-bezier(0.25, 0.8, 0.3, 1);
-}
-.branding-item:hover .branding-img-box img {
-  transform: scale(1.08);
-}
-
-.branding-item figcaption {
-  padding: 14px 18px;
-  font-size: 0.88rem;
-  font-weight: 600;
-  color: var(--text);
-}
-
-/* ============================================
-   BRAND APPLICATIONS — Ourvita in Real World
-   Dark premium section
-   ============================================ */
-.brand-apps {
-  background: linear-gradient(135deg, #1E1B22, #2D2A32);
-}
-
-/* Section head ke colors dark bg ke liye adjust */
-.brand-apps .section-label {
-  color: var(--light);
-  background: rgba(255, 107, 157, 0.15);
-  border-color: rgba(255, 107, 157, 0.3);
-}
-.brand-apps .section-title { color: #FFFFFF; }
-.brand-apps .section-desc { color: rgba(245, 234, 226, 0.65); }
-.brand-apps .section-title::after { background: var(--grad); }
-
-.apps-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 26px;
-  max-width: 960px;
-  margin-inline: auto;
-}
-
-.app-card {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: var(--radius);
-  overflow: hidden;
-  backdrop-filter: blur(8px);
-  transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.3, 1), box-shadow 0.4s ease, border-color 0.4s ease;
-}
-.app-card:hover {
-  transform: translateY(-10px) scale(1.02);
-  border-color: rgba(255, 107, 157, 0.45);
-  box-shadow: 0 24px 60px rgba(255, 107, 157, 0.3);
-}
-
-.app-img-box {
-  position: relative;
-  aspect-ratio: 16 / 10;
-  overflow: hidden;
-  background: linear-gradient(135deg, #FF6B9D 0%, #FF8E53 50%, #FFD5C5 100%);
-}
-
-.app-img-box img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.5s ease;
-}
-.app-card:hover .app-img-box img {
-  transform: scale(1.08);
-}
-
-/* Gradient placeholder — jab image na ho */
-.app-placeholder {
-  display: none;
-  position: absolute;
-  inset: 0;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  background: linear-gradient(135deg, #FF6B9D 0%, #FF8E53 50%, #A78BFA 100%);
-  background-size: 200% 200%;
-  animation: placeholderShift 8s ease-in-out infinite alternate;
-}
-@keyframes placeholderShift {
-  0%   { background-position: 0% 0; }
-  100% { background-position: 100% 100%; }
-}
-.app-placeholder i {
-  font-size: 2.4rem;
-  color: rgba(255, 255, 255, 0.85);
-}
-.app-placeholder span {
-  font-weight: 700;
-  font-size: 1rem;
-  color: #fff;
-  letter-spacing: 0.5px;
-}
-
-.app-card-body {
-  padding: 22px 24px 26px;
-}
-.app-card-body h3 {
-  font-size: 1.1rem;
-  font-weight: 700;
-  color: #FFFFFF;
-  margin-bottom: 8px;
-}
-.app-card-body p {
-  font-size: 0.87rem;
-  font-weight: 300;
-  color: rgba(245, 234, 226, 0.65);
-  line-height: 1.6;
-}
-
-/* ============================================
-   RESPONSIVE
+   RESPONSIVE — 100% Media Responsive
    ============================================ */
 @media (max-width: 1024px) {
   .gallery-grid { grid-template-columns: repeat(2, 1fr); gap: 18px; }
-  .about-wrap { grid-template-columns: 1fr; gap: 36px; text-align: center; }
-  .about-text .section-title { text-align: center; }
-  .about-text .section-title::after { margin-inline: auto; }
-  .about-filters, .about-text .btn { justify-content: center; }
-
-  .nav-link { font-size: 0.8rem; padding: 7px 8px; }
+  .nav-link { font-size: 0.78rem; padding: 7px 8px; }
   .logo { font-size: 1.1rem; }
-
   .branding-grid { grid-template-columns: 1fr; }
 }
 
@@ -950,10 +809,7 @@ button { font-family: inherit; }
 @media (max-width: 768px) {
   .section { padding: 64px 0; }
 
-  .hero-stats {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 12px;
-  }
+  .hero-stats { grid-template-columns: repeat(3, 1fr); gap: 12px; }
   .stat { padding: 14px 8px; }
   .stat strong { font-size: 1.4rem; }
   .stat span { font-size: 0.75rem; }
@@ -961,17 +817,10 @@ button { font-family: inherit; }
   .footer-name { font-size: 2.1rem; }
   .footer { padding: 32px 0 28px; }
 
-  .tweets-wrap { padding: 0 8px; }
-  .tweets-wrap iframe { max-width: 100% !important; }
-
   .lightbox-nav { width: 42px; height: 42px; }
   .lightbox-prev { left: 10px; }
   .lightbox-next { right: 10px; }
-}
-
-/* Small mobile — apps grid 1 column */
-@media (max-width: 640px) {
-  .apps-grid { grid-template-columns: 1fr; }
+  .lightbox video { max-height: 70vh; }
 }
 
 @media (max-width: 480px) {
@@ -981,7 +830,7 @@ button { font-family: inherit; }
   .tab { padding: 8px 16px; font-size: 0.82rem; }
   .filter-tabs { gap: 8px; }
   .hero-buttons .btn { padding: 12px 24px; font-size: 0.88rem; }
-  .app-card-body { padding: 18px 20px 22px; }
+  .play-overlay i { width: 46px; height: 46px; font-size: 0.92rem; }
 }
 
 @media (prefers-reduced-motion: reduce) {

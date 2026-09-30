@@ -1,9 +1,10 @@
 /* ============================================================
-   NANCY HAZEL — script.js (FINAL v12)
-   6 Tabs | Website custom cards | Branding + Applications routing
+   NANCY HAZEL — script.js (FINAL v14)
+   7 Tabs: Comics | 2D Arts | Emotes | 3D Models | Mascot Logos
+   Videos | Websites — Video lightbox playback included
    ============================================================ */
 
-/* 1. IMAGE LOAD */
+/* 1. IMAGE LOAD — fade-in jab image load ho */
 function setupImageLoading() {
   document.querySelectorAll('img.gallery-img').forEach(img => {
     if (img.complete) {
@@ -18,7 +19,20 @@ function setupImageLoading() {
   });
 }
 
-/* 2. SCROLL REVEAL */
+/* 2. VIDEO CARDS — hover pe muted preview chalti hai */
+function setupVideoHover() {
+  document.querySelectorAll('.gallery-card.video-card').forEach(card => {
+    const vid = card.querySelector('video.gallery-video');
+    if (!vid) return;
+    card.addEventListener('mouseenter', () => vid.play().catch(() => {}));
+    card.addEventListener('mouseleave', () => {
+      vid.pause();
+      vid.currentTime = 0;
+    });
+  });
+}
+
+/* 3. SCROLL REVEAL */
 const revealObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
@@ -28,27 +42,29 @@ const revealObserver = new IntersectionObserver((entries) => {
   });
 }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
 
-/* 3. CATEGORY HEADINGS */
+/* 4. CATEGORY HEADINGS */
 const CATEGORY_META = {
   comics:   { title: "Comics",       desc: "Story-driven comic pages made with love for amazing clients." },
   art2d:    { title: "2D Arts",      desc: "Character illustrations, portraits and concept artwork." },
   emotes:   { title: "Emotes",       desc: "Twitch & Discord emote packs — expressive, cute and readable." },
+  models3d: { title: "3D Models",    desc: "Detailed 3D models & renders — characters, props and scenes." },
   mascots:  { title: "Mascot Logos", desc: "Esports & stream mascot logos with bold shield designs." },
-  tattoos:  { title: "Tattoos",      desc: "Custom tattoo commissions — clean lines, playful designs." },
-  websites: { title: "Website",      desc: "Modern, responsive websites designed and built from scratch." }
+  videos:   { title: "Videos",       desc: "Animation & motion reels — click any video to watch it in fullscreen." },
+  websites: { title: "Websites",     desc: "Modern, responsive websites designed and built from scratch." }
 };
 
-/* 4. TAB ORDER — 6 tabs */
+/* 5. TAB ORDER — 7 tabs */
 const TAB_ORDER = [
   { key: "comics",   label: "Comics" },
   { key: "art2d",    label: "2D Arts" },
   { key: "emotes",   label: "Emotes" },
+  { key: "models3d", label: "3D Models" },
   { key: "mascots",  label: "Mascot Logos" },
-  { key: "tattoos",  label: "Tattoos" },
-  { key: "websites", label: "Website" }
+  { key: "videos",   label: "Videos" },
+  { key: "websites", label: "Websites" }
 ];
 
-/* 5. BUILD GALLERY */
+/* 6. BUILD GALLERY — images + video cards + website cards */
 const galleryGrid = document.getElementById('galleryGrid');
 const galleryTitle = document.getElementById('galleryTitle');
 const galleryDesc = document.getElementById('galleryDesc');
@@ -57,8 +73,26 @@ function buildGallery() {
   if (!galleryGrid) return;
 
   allImages.forEach((img) => {
-    const cat = CATEGORIES[img.category];
 
+    /* ----- 🎬 VIDEO CARD ----- */
+    if (img.type === 'video') {
+      galleryGrid.insertAdjacentHTML("beforeend", `
+        <figure class="gallery-card video-card reveal" data-category="${img.category}">
+          <div class="img-box video-box">
+            <video src="${img.src}" data-full="${img.full}" muted loop playsinline
+                   preload="metadata" class="gallery-video"></video>
+            <span class="play-overlay"><i class="fa-solid fa-play"></i></span>
+          </div>
+          <div class="card-info">
+            <h3>Video #${img.id}</h3>
+            <span class="card-cat">Videos</span>
+          </div>
+        </figure>
+      `);
+      return;
+    }
+
+    /* ----- 🌐 WEBSITE CARD (Live Preview button) ----- */
     if (img.title && img.desc) {
       const btnHTML = img.link
         ? `<a href="${img.link}" target="_blank" rel="noopener" class="btn-preview">Live Preview <i class="fa-solid fa-arrow-up-right-from-square"></i></a>`
@@ -67,7 +101,7 @@ function buildGallery() {
         <figure class="gallery-card custom-card reveal" data-category="${img.category}">
           <div class="img-box">
             <img src="${img.src}" data-full="${img.full}"
-              alt="${img.title} by Nancy Hazel" loading="lazy" class="gallery-img">
+                 alt="${img.title} by Nancy Hazel" loading="lazy" class="gallery-img">
           </div>
           <div class="card-info custom-info">
             <h3>${img.title}</h3>
@@ -79,11 +113,13 @@ function buildGallery() {
       return;
     }
 
+    /* ----- 🖼️ NORMAL IMAGE CARD ----- */
+    const cat = CATEGORIES[img.category];
     galleryGrid.insertAdjacentHTML("beforeend", `
       <figure class="gallery-card reveal" data-category="${img.category}">
         <div class="img-box">
           <img src="${img.src}" data-full="${img.full}"
-            alt="${cat.label} artwork #${img.id} by Nancy Hazel" loading="lazy" class="gallery-img">
+               alt="${cat.label} artwork #${img.id} by Nancy Hazel" loading="lazy" class="gallery-img">
         </div>
         <div class="card-info">
           <h3>${cat.label} #${img.id}</h3>
@@ -94,7 +130,7 @@ function buildGallery() {
   });
 }
 
-/* 6. FILTER TABS */
+/* 7. FILTER TABS */
 function buildFilterTabs() {
   const tabsWrap = document.getElementById('filterTabs');
   if (!tabsWrap) return;
@@ -110,7 +146,7 @@ function buildFilterTabs() {
   tabsWrap.innerHTML = html;
 }
 
-/* 7. FILTER + VIEW ALL */
+/* 8. FILTER + VIEW ALL */
 const filterTabs = document.getElementById('filterTabs');
 const viewAllBtn = document.getElementById('viewAllBtn');
 const loadMoreWrap = document.getElementById('loadMoreWrap');
@@ -149,7 +185,7 @@ function applyFilter() {
   const hasMore = totalMatched > shownCount;
   loadMoreWrap.classList.toggle('hidden-btn', isExpanded || !hasMore);
   if (!isExpanded && hasMore) {
-    viewAllBtn.innerHTML = `View All ${totalMatched - shownCount} More Artworks <i class="fa-solid fa-arrow-down"></i>`;
+    viewAllBtn.innerHTML = `View All ${totalMatched - shownCount} More <i class="fa-solid fa-arrow-down"></i>`;
   }
 }
 
@@ -173,32 +209,6 @@ viewAllBtn.addEventListener('click', () => {
   isExpanded = true;
   applyFilter();
   viewAllBtn.innerHTML = `Showing Everything ✦ <i class="fa-solid fa-heart"></i>`;
-});
-
-/* 8. ABOUT KE 4 BUTTONS */
-document.querySelectorAll('.about-filters .tab').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const cat = btn.dataset.jump;
-
-    if (cat === 'branding') {
-      document.getElementById('branding-case').scrollIntoView({ behavior: 'smooth' });
-      setActiveNav('branding');
-      return;
-    }
-
-    if (cat === 'applications') {
-      document.getElementById('applications').scrollIntoView({ behavior: 'smooth' });
-      setActiveNav('applications');
-      return;
-    }
-
-    currentFilter = cat;
-    isExpanded = false;
-    setActiveTab(cat);
-    applyFilter();
-    setActiveNav(cat);
-    document.getElementById('gallery').scrollIntoView({ behavior: 'smooth' });
-  });
 });
 
 /* 9. NAVBAR ROUTING */
@@ -231,12 +241,9 @@ navLinks.forEach(link => {
   });
 });
 
-/* 10. SCROLL — navbar, progress, active */
+/* 10. SCROLL — navbar, progress, active link */
 const progressBar = document.getElementById('scrollProgress');
-const aboutSection = document.getElementById('about');
-const tweetsSection = document.getElementById('tweets');
 const brandingSection = document.getElementById('branding-case');
-const applicationsSection = document.getElementById('applications');
 
 function updateNavOnScroll() {
   const scrollY = window.scrollY;
@@ -246,18 +253,9 @@ function updateNavOnScroll() {
   const docHeight = document.documentElement.scrollHeight - window.innerHeight;
   progressBar.style.width = (docHeight > 0 ? (scrollY / docHeight) * 100 : 0) + '%';
 
-  const aboutTop = aboutSection ? aboutSection.offsetTop - 150 : Infinity;
   const brandingTop = brandingSection ? brandingSection.offsetTop - 150 : Infinity;
-  const appsTop = applicationsSection ? applicationsSection.offsetTop - 150 : Infinity;
-  const tweetsTop = tweetsSection ? tweetsSection.offsetTop - 150 : Infinity;
 
-  if (scrollY >= tweetsTop) {
-    navLinks.forEach(l => l.classList.remove('active'));
-  } else if (scrollY >= aboutTop) {
-    setActiveNav('about');
-  } else if (scrollY >= appsTop) {
-    setActiveNav('applications');
-  } else if (scrollY >= brandingTop) {
+  if (scrollY >= brandingTop) {
     setActiveNav('branding');
   } else {
     setActiveNav(currentFilter);
@@ -273,9 +271,10 @@ hamburger.addEventListener('click', () => {
   document.body.style.overflow = navMenu.classList.contains('open') ? 'hidden' : '';
 });
 
-/* 12. LIGHTBOX */
+/* 12. LIGHTBOX — Images + Videos dono */
 const lightbox = document.getElementById('lightbox');
 const lightboxImg = document.getElementById('lightboxImg');
+const lightboxVideo = document.getElementById('lightboxVideo');
 const lightboxCaption = document.getElementById('lightboxCaption');
 const lightboxClose = document.getElementById('lightboxClose');
 const lightboxPrev = document.getElementById('lightboxPrev');
@@ -284,50 +283,85 @@ const lightboxNext = document.getElementById('lightboxNext');
 let currentGallery = [];
 let currentIndex = 0;
 
-function openLightbox(img) {
+function collectGalleryItems() {
   currentGallery = Array.from(
-    galleryGrid.querySelectorAll('.gallery-card:not(.card-hidden) img.gallery-img')
-  ).map(i => ({ src: i.dataset.full || i.src, alt: i.alt }));
+    galleryGrid.querySelectorAll('.gallery-card:not(.card-hidden) img.gallery-img, .gallery-card:not(.card-hidden) video.gallery-video')
+  ).map(el => {
+    if (el.tagName === 'VIDEO') {
+      const title = el.closest('.gallery-card').querySelector('h3');
+      return { type: 'video', src: el.dataset.full || el.src, alt: title ? title.textContent : 'Video' };
+    }
+    return { type: 'image', src: el.dataset.full || el.src, alt: el.alt };
+  });
+}
 
-  currentIndex = currentGallery.findIndex(item => item.src === (img.dataset.full || img.src));
+function openLightbox(el) {
+  /* gallery ke preview videos pause kardo */
+  document.querySelectorAll('video.gallery-video').forEach(v => v.pause());
+
+  collectGalleryItems();
+  const targetSrc = el.dataset.full || el.src;
+  currentIndex = currentGallery.findIndex(item => item.src === targetSrc);
   if (currentIndex < 0) currentIndex = 0;
 
-  showLightboxImage();
+  showLightboxItem();
   lightbox.classList.add('active');
   document.body.style.overflow = 'hidden';
 }
 
-function showLightboxImage() {
+function showLightboxItem() {
   const item = currentGallery[currentIndex];
   if (!item) return;
-  lightboxImg.style.opacity = '0';
-  const temp = new Image();
-  temp.onload = () => {
-    lightboxImg.src = item.src;
-    lightboxImg.alt = item.alt;
-    lightboxImg.style.opacity = '1';
-  };
-  temp.src = item.src;
-  lightboxCaption.textContent = item.alt;
+
+  if (item.type === 'video') {
+    /* 🎬 VIDEO MODE */
+    lightboxImg.style.display = 'none';
+    lightboxImg.removeAttribute('src');
+    lightboxVideo.style.display = 'block';
+    lightboxVideo.src = item.src;
+    lightboxVideo.play().catch(() => {});
+    lightboxCaption.textContent = item.alt;
+  } else {
+    /* 🖼️ IMAGE MODE */
+    lightboxVideo.pause();
+    lightboxVideo.style.display = 'none';
+    lightboxImg.style.display = 'block';
+    lightboxImg.style.opacity = '0';
+    const temp = new Image();
+    temp.onload = () => {
+      lightboxImg.src = item.src;
+      lightboxImg.alt = item.alt;
+      lightboxImg.style.opacity = '1';
+    };
+    temp.src = item.src;
+    lightboxCaption.textContent = item.alt;
+  }
 }
 
 function closeLightbox() {
+  lightboxVideo.pause();
+  lightboxVideo.removeAttribute('src');
+  lightboxVideo.load();
   lightbox.classList.remove('active');
   document.body.style.overflow = '';
 }
+
 function prevImage() {
   currentIndex = (currentIndex - 1 + currentGallery.length) % currentGallery.length;
-  showLightboxImage();
+  showLightboxItem();
 }
 function nextImage() {
   currentIndex = (currentIndex + 1) % currentGallery.length;
-  showLightboxImage();
+  showLightboxItem();
 }
 
+/* Gallery click — image ya video dono lightbox khulenge */
 galleryGrid.addEventListener('click', (e) => {
   if (e.target.closest('.btn-preview')) return;
   const img = e.target.closest('img.gallery-img');
-  if (img) openLightbox(img);
+  if (img) { openLightbox(img); return; }
+  const vid = e.target.closest('video.gallery-video');
+  if (vid) openLightbox(vid);
 });
 
 lightboxClose.addEventListener('click', closeLightbox);
@@ -342,6 +376,7 @@ document.addEventListener('keydown', (e) => {
   if (e.key === 'ArrowRight') nextImage();
 });
 
+/* Swipe — mobile pe left/right swipe */
 let touchStartX = 0;
 lightbox.addEventListener('touchstart', (e) => {
   touchStartX = e.changedTouches[0].screenX;
@@ -356,9 +391,10 @@ buildFilterTabs();
 buildGallery();
 applyFilter();
 setupImageLoading();
+setupVideoHover();
 updateNavOnScroll();
 
 document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
 console.log('%c✦ Nancy Hazel Portfolio ✦', 'color:#FF6B9D;font-size:20px;font-weight:bold;');
-console.log('%cImages loaded: ' + allImages.length, 'color:#FF8E53;font-size:14px;');
+console.log('%cTotal items loaded: ' + allImages.length, 'color:#FF8E53;font-size:14px;');
